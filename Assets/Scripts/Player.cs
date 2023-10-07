@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 
     [Header("Interaction")]
     [SerializeField] private float interactRange = 1.0f;
-    [SerializeField] private float interactCooldown = 0.5f;
+    [SerializeField] private float inputCooldown = 0.5f;
     [SerializeField] private bool showInteractGizmo = false;
 
     private float xInput;
@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     private bool interacting = false;
     private Coroutine interactCooldownCoroutine;
 
+    private bool lexicon = false;
+    private Coroutine lexiconCooldownCoroutine;
+    public delegate void LexiconInputRecieved();
+    public LexiconInputRecieved lexiconInputRecieved;
 
     private void Update()
     {
@@ -88,11 +92,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Lexicon()
-    {
-        throw new System.NotImplementedException("Lexicon is not yet implemented");
-    }
-
     private void BeginInteractCooldown()
     {
         if (interactCooldownCoroutine != null)
@@ -102,8 +101,31 @@ public class Player : MonoBehaviour
 
     private IEnumerator InteractCooldownCoroutine()
     {
-        yield return new WaitForSeconds(interactCooldown);
+        yield return new WaitForSeconds(inputCooldown);
         interacting = false;
+    }
+
+    private void Lexicon()
+    {
+        if (lexicon)
+            return;
+
+        lexiconInputRecieved();
+        lexicon = true;
+        BeginLexiconCooldown();
+    }
+
+    private void BeginLexiconCooldown()
+    {
+        if (lexiconCooldownCoroutine != null)
+            StopCoroutine(lexiconCooldownCoroutine);
+        lexiconCooldownCoroutine = StartCoroutine(LexiconCooldownCoroutine());
+    }
+
+    private IEnumerator LexiconCooldownCoroutine()
+    {
+        yield return new WaitForSeconds(inputCooldown);
+        lexicon = false;
     }
 
     private void OnDrawGizmos()
