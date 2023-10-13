@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private GameManager gameManager;
-
     [SerializeField] private Rigidbody rb;
-
-    private const string interactable_tag = "Interactable";
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
@@ -18,12 +14,15 @@ public class Player : MonoBehaviour
     [SerializeField] private float inputCooldown = 0.5f;
     [SerializeField] private bool showInteractGizmo = false;
 
+    private GameManager gameManager;
+    private CameraController camController;
+
+    private const string interactable_tag = "Interactable";
+
     private float xInput;
     private float zInput;
     private bool interactInput;
     private bool lexiconInput;
-
-    private CameraController camController;
 
     private bool interacting = false;
     private Coroutine interactCooldownCoroutine;
