@@ -152,6 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 705507995}
   - {fileID: 843960000}
   - {fileID: 520327039}
   - {fileID: 764545845}
@@ -310,7 +311,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 249406629}
-  lexiconObject: {fileID: 267385332}
+  activeCamera: {fileID: 963194229}
+  lexiconPanel: {fileID: 267385332}
 --- !u!4 &177878975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2986819259834987261, guid: 3c9954feacf78e342bd3765d20786cc4, type: 3}
@@ -339,7 +341,7 @@ GameObject:
   - component: {fileID: 267385335}
   - component: {fileID: 267385334}
   m_Layer: 5
-  m_Name: Lexicon
+  m_Name: Lexicon Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1076,7 +1078,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 37126330}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &764545844
 GameObject:
@@ -1228,6 +1230,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1309,6 +1312,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32db7faae0885394a897e9f31893eeb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 2
 --- !u!1 &1087751597
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,10 +1938,9 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 963194228}
-  - {fileID: 705507995}
   - {fileID: 138467318}
+  - {fileID: 963194228}
+  - {fileID: 627098524}
   - {fileID: 286217769}
   - {fileID: 37126330}
   - {fileID: 8360788842831982187}
-  - {fileID: 627098524}

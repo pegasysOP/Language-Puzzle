@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private GameManager gameManager;
+
     [SerializeField] private Rigidbody rb;
 
     private const string interactable_tag = "Interactable";
@@ -21,6 +23,8 @@ public class Player : MonoBehaviour
     private bool interactInput;
     private bool lexiconInput;
 
+    private CameraController camController;
+
     private bool interacting = false;
     private Coroutine interactCooldownCoroutine;
 
@@ -28,6 +32,14 @@ public class Player : MonoBehaviour
     private Coroutine lexiconCooldownCoroutine;
     public delegate void LexiconInputRecieved();
     public LexiconInputRecieved lexiconInputRecieved;
+
+    private void Start()
+    {
+        gameManager = GameManager.instance;
+
+        gameManager.cameraChanged += OnCameraChanged;
+        camController = gameManager.GetActiveCamera();
+    }
 
     private void Update()
     {
@@ -51,7 +63,9 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        rb.velocity = new Vector3(xInput, 0f, zInput).normalized * moveSpeed;
+        Vector3 inputDirection = new Vector3(xInput, 0f, zInput).normalized;
+        Vector3 relativeDirection = camController.GetRelativeDirection(inputDirection);
+        rb.velocity = new Vector3(relativeDirection.x, 0f, relativeDirection.z) * moveSpeed;
     }
 
     private void Interact()
@@ -126,6 +140,11 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(inputCooldown);
         lexicon = false;
+    }
+
+    private void OnCameraChanged()
+    {
+        camController = gameManager.GetActiveCamera();
     }
 
     private void OnDrawGizmos()

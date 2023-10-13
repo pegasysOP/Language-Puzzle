@@ -7,7 +7,11 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField] private Player player;
-    [SerializeField] private GameObject lexiconObject;
+    [SerializeField] private CameraController activeCamera;
+    [SerializeField] private GameObject lexiconPanel;
+
+    public delegate void CameraChanged();
+    public CameraChanged cameraChanged;
 
     private void Awake()
     {
@@ -24,11 +28,11 @@ public class GameManager : MonoBehaviour
 
     private void OnLexiconInput()
     {
-        lexiconObject.SetActive(!lexiconObject.activeSelf);
+        lexiconPanel.SetActive(!lexiconPanel.activeSelf);
     }
 
     /// <summary>
-    /// Gets the active instance of player
+    /// Gets the active instance of Player
     /// </summary>
     /// <returns>Can return null</returns>
     public Player GetPlayer()
@@ -37,5 +41,17 @@ public class GameManager : MonoBehaviour
             Debug.LogError("GameManager could not find the instance of Player");
 
         return player;
+    }
+
+    /// <summary>
+    /// Gets the active instance of CameraController
+    /// </summary>
+    /// <returns>can return null</returns>
+    public CameraController GetActiveCamera()
+    {
+        if (activeCamera == null)
+            Debug.LogError("GameManager could not find the instance of CameraController");
+
+        return activeCamera;
     }
 }
