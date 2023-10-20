@@ -217,7 +217,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4731025446729572272}
         m_TargetAssemblyTypeName: LexiconEntry, Assembly-CSharp
         m_MethodName: OnEntryInputChanged
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

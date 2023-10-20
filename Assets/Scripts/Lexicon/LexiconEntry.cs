@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,6 +6,7 @@ using UnityEngine.UI;
 public class LexiconEntry : MonoBehaviour
 {
     [SerializeField] private Image rune;
+    private RuneType type;
 
     [Header("Tag")]
     [SerializeField] private TextMeshProUGUI tagText;
@@ -17,11 +16,12 @@ public class LexiconEntry : MonoBehaviour
 
     private int tagIndex;
 
-    public delegate void EntryInputChanged(string input);
-    public EntryInputChanged entryInputChanged;
+    public delegate void EntryInputChanged(RuneType type, string input);
+    public EntryInputChanged InputChanged;
 
-    public void Init(Sprite runeImage, int tagIndex)
+    public void Init(RuneType type, Sprite runeImage, int tagIndex)
     {
+        this.type = type;
         rune.sprite = runeImage;
         this.tagIndex = tagIndex;
         SetTagUI(tagIndex);
@@ -49,7 +49,7 @@ public class LexiconEntry : MonoBehaviour
 
     public void OnEntryInputChanged(string input)
     {
-        entryInputChanged(input);
+        InputChanged(type, input);
     }
 }
 
